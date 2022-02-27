@@ -23,21 +23,34 @@ function switchPlayers() {
 }
 
 //Initial Values
-const winPoints = 100;
-const scores = [0, 0];
-let currentScore = 0;
-let activePlayer = 0;
-score0El.textContent = 0;
-score1El.textContent = 0;
-diceEl.classList.add('hidden');
-let playing = true;
+let scores, currentScore, activePlayer, playing, winPoints;
+
+// Reset Game
+function gameInit() {
+  winPoints = 100;
+  currentScore = 0;
+  activePlayer = 0;
+  scores = [0, 0];
+  current0El.textContent = 0;
+  current1El.textContent = 0;
+  score0El.textContent = 0;
+  score1El.textContent = 0;
+  activePlayer = 0;
+  playing = true;
+  diceEl.classList.add('hidden');
+  player0El.classList.remove('player--winner');
+  player1El.classList.remove('player--winner');
+  player0El.classList.add('player--active');
+  player1El.classList.remove('player--active');
+}
+gameInit();
 
 //Rolling dice functionality
 
 btnRoll.addEventListener('click', function () {
   if (playing) {
     //1. Generating a random dice roll
-    const dice = Math.trunc(Math.random() * 6) + 1;
+    const dice = Math.trunc(Math.random() * 6) + 3;
 
     //2. Display dice
     diceEl.classList.remove('hidden');
@@ -87,18 +100,5 @@ btnHold.addEventListener('click', function () {
 // NEW GAME BUTTON EVENT
 
 btnNew.addEventListener('click', function () {
-  currentScore = 0;
-  current0El.textContent = 0;
-  current1El.textContent = 0;
-  score0El.textContent = 0;
-  score1El.textContent = 0;
-  scores[0] = 0;
-  scores[1] = 0;
-  document
-    .querySelector(`.player--${activePlayer}`)
-    .classList.remove('player--winner');
-  activePlayer = 0;
-  diceEl.classList.add('hidden');
-  player0El.classList.add('player--active');
-  playing = true;
+  gameInit();
 });
